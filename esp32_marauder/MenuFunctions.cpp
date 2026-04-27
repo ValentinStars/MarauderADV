@@ -1457,6 +1457,28 @@ bool MenuFunctions::isKeyPressed(char c)
 }
 #endif
 
+void MenuFunctions::showAdvStatus()
+{
+  #ifdef MARAUDER_CARDPUTER_ADV
+    wifi_scan_obj.currentScanMode = SHOW_INFO;
+    display_obj.clearScreen();
+    display_obj.tft.setTextWrap(false);
+    display_obj.tft.setFreeFont(NULL);
+    display_obj.tft.setTextSize(1);
+    display_obj.tft.setTextColor(TFT_CYAN, TFT_BLACK);
+    display_obj.tft.setCursor(0, STATUS_BAR_WIDTH + 4);
+    display_obj.tft.println("M5Cardputer-Adv");
+    display_obj.tft.println("Marauder " + (String)MARAUDER_VERSION);
+    display_obj.tft.println("IDF " + (String)esp_get_idf_version());
+    display_obj.tft.println("Heap " + (String)ESP.getFreeHeap());
+    display_obj.tft.println("Battery " + (String)battery_obj.battery_level + "%");
+    display_obj.tft.println(sd_obj.supported ? ("SD " + sd_obj.card_sz + "MB") : "SD not mounted");
+    display_obj.tft.println("TFT 37/36/35/34/33/38");
+    display_obj.tft.println("SD 12/40/39/14");
+    display_obj.tft.println("I2C 8/9 INT 11");
+  #endif
+}
+
 // Function to build the menus
 void MenuFunctions::RunSetup()
 {
@@ -2730,6 +2752,12 @@ void MenuFunctions::RunSetup()
     this->addNodes(&deviceMenu, "Brightness", TFTYELLOW, NULL, BRIGHTNESS, [this]() {
       this->brightnessMode();
     });
+  #endif
+
+  #ifdef MARAUDER_CARDPUTER_ADV
+  this->addNodes(&deviceMenu, "ADV Status", TFTCYAN, NULL, DEVICE_INFO, [this]() {
+    this->showAdvStatus();
+  });
   #endif
 
   this->addNodes(&deviceMenu, text_table1[17], TFTWHITE, NULL, DEVICE_INFO, [this]() {

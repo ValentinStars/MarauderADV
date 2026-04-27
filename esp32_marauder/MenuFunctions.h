@@ -241,6 +241,7 @@ class MenuFunctions
     #endif
 
   public:
+    void showAdvStatus();
     Menu* current_menu;
     Menu clearSSIDsMenu;
     Menu clearAPsMenu;

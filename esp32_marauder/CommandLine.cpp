@@ -266,6 +266,9 @@ void CommandLine::runCommand(String input) {
     
     // WiFi Aux
     Serial.println(HELP_INFO_CMD);
+    #ifdef MARAUDER_CARDPUTER_ADV
+      Serial.println(HELP_ADVINFO_CMD);
+    #endif
     Serial.println(HELP_LIST_AP_CMD_A);
     Serial.println(HELP_LIST_AP_CMD_B);
     Serial.println(HELP_LIST_AP_CMD_C);
@@ -1346,6 +1349,28 @@ void CommandLine::runCommand(String input) {
       wifi_scan_obj.RunInfo();
     }
   }
+  #ifdef MARAUDER_CARDPUTER_ADV
+  else if (cmd_args.get(0) == ADVINFO_CMD) {
+    Serial.println(F("===== M5Cardputer-Adv ====="));
+    Serial.println("Firmware: " + (String)MARAUDER_VERSION);
+    Serial.println("Hardware: " + (String)HARDWARE_NAME);
+    Serial.println("ESP-IDF: " + (String)esp_get_idf_version());
+    Serial.println("Heap: " + (String)ESP.getFreeHeap());
+    Serial.println("Min heap: " + (String)ESP.getMinFreeHeap());
+    Serial.println("Battery: " + (String)battery_obj.battery_level + "%");
+    #ifdef HAS_SD
+      Serial.println(sd_obj.supported ? ("SD: " + sd_obj.card_sz + "MB") : "SD: not mounted");
+    #endif
+    Serial.println(F("Display: CS=37 SCK=36 MOSI=35 DC=34 RST=33 BL=38"));
+    Serial.println(F("Keyboard: TCA8418 SDA=8 SCL=9 INT=11"));
+    Serial.println(F("SD SPI: CS=12 SCK=40 MISO=39 MOSI=14"));
+    Serial.println(F("Battery ADC: 10"));
+    Serial.println(F("NeoPixel: 21"));
+    #ifdef HAS_SCREEN
+      menu_function_obj.showAdvStatus();
+    #endif
+  }
+  #endif
   else if (cmd_args.get(0) == JOIN_CMD) {
     int ap_sw = this->argSearch(&cmd_args, "-a");
     int pw_sw = this->argSearch(&cmd_args, "-p");

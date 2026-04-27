@@ -16,6 +16,9 @@
   #include "SDInterface.h"
 #endif
 #include "settings.h"
+#ifdef HAS_BATTERY
+  #include "BatteryInterface.h"
+#endif
 #if defined(HAS_NEOPIXEL_LED)
   #include "LedInterface.h"
 #endif
@@ -31,6 +34,9 @@ extern WiFiScan wifi_scan_obj;
   extern SDInterface sd_obj;
 #endif
 extern Settings settings_obj;
+#ifdef HAS_BATTERY
+  extern BatteryInterface battery_obj;
+#endif
 #if defined(HAS_NEOPIXEL_LED)
   extern LedInterface led_obj;
 #endif
@@ -99,6 +105,9 @@ const char PROGMEM ATTACK_TYPE_QUIET[] = "quiet";
 // WiFi Aux
 const char PROGMEM LIST_AP_CMD[] = "list";
 const char PROGMEM INFO_CMD[] = "info";
+#ifdef MARAUDER_CARDPUTER_ADV
+const char PROGMEM ADVINFO_CMD[] = "advinfo";
+#endif
 const char PROGMEM SEL_CMD[] = "select";
 const char PROGMEM SSID_CMD[] = "ssid";
 const char PROGMEM SAVE_CMD[] = "save";
@@ -170,6 +179,9 @@ const char PROGMEM HELP_LIST_AP_CMD_D[] = "list -t";
 const char PROGMEM HELP_LIST_AP_CMD_E[] = "list -i";
 const char PROGMEM HELP_LIST_AP_CMD_F[] = "list -p";
 const char PROGMEM HELP_INFO_CMD[] = "info [-a <index>]";
+#ifdef MARAUDER_CARDPUTER_ADV
+const char PROGMEM HELP_ADVINFO_CMD[] = "advinfo";
+#endif
 const char PROGMEM HELP_SEL_CMD_A[] = "select -a/-s/-c <index (comma separated)>/-f \"equals <String> or contains <String>\"";
 const char PROGMEM HELP_SSID_CMD_A[] = "ssid -a [-g <count>/-n <name>]";
 const char PROGMEM HELP_SSID_CMD_B[] = "ssid -r <index>";

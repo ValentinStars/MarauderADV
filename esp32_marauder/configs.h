@@ -37,6 +37,25 @@
   //#define DUAL_MINI_C5
   //// END BOARD TARGETS
 
+  // This fork is tuned for M5Cardputer-Adv. Keep the old targets above as
+  // reference, but default local builds to ADV unless a board target is provided
+  // by the build system.
+  #if !defined(MARAUDER_M5STICKC) && !defined(MARAUDER_M5STICKCP2) && \
+      !defined(MARAUDER_MINI) && !defined(MARAUDER_V4) && \
+      !defined(MARAUDER_V6) && !defined(MARAUDER_V6_1) && \
+      !defined(MARAUDER_V7) && !defined(MARAUDER_V7_1) && \
+      !defined(MARAUDER_KIT) && !defined(GENERIC_ESP32) && \
+      !defined(MARAUDER_FLIPPER) && !defined(MARAUDER_MULTIBOARD_S3) && \
+      !defined(ESP32_LDDB) && !defined(MARAUDER_DEV_BOARD_PRO) && \
+      !defined(XIAO_ESP32_S3) && !defined(MARAUDER_REV_FEATHER) && \
+      !defined(MARAUDER_CYD_MICRO) && !defined(MARAUDER_CYD_2USB) && \
+      !defined(MARAUDER_CYD_GUITION) && !defined(MARAUDER_CYD_3_5_INCH) && \
+      !defined(MARAUDER_C5) && !defined(MARAUDER_CARDPUTER) && \
+      !defined(MARAUDER_CARDPUTER_ADV) && !defined(MARAUDER_V8) && \
+      !defined(MARAUDER_MINI_V3) && !defined(DUAL_MINI_C5)
+    #define MARAUDER_CARDPUTER_ADV
+  #endif
+
   #define JSON_SETTING_SIZE 2048
 
   #define MARAUDER_VERSION "v1.12.0"
