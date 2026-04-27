@@ -110,6 +110,11 @@ bool Display::isTouchHeld(uint16_t threshold) {
 }
 
 void Display::init() {
+  #if defined(MARAUDER_CARDPUTER) || defined(MARAUDER_CARDPUTER_ADV)
+    pinMode(TFT_BL, OUTPUT);
+    digitalWrite(TFT_BL, TFT_BACKLIGHT_ON);
+  #endif
+
   tft.init();
 
   #if defined(HAS_DUAL_BAND) && !defined(MARAUDER_MINI_V3)
@@ -168,6 +173,11 @@ void Display::RunSetup() {
     this->touchscreen.setRotation(0);
   #endif
   
+  #if defined(MARAUDER_CARDPUTER) || defined(MARAUDER_CARDPUTER_ADV)
+    pinMode(TFT_BL, OUTPUT);
+    digitalWrite(TFT_BL, TFT_BACKLIGHT_ON);
+  #endif
+
   tft.init();
 
   tft.setRotation(SCREEN_ORIENTATION);
